@@ -35,6 +35,11 @@ public class SearchResultAdapter extends BaseAdapter {
 		this.listObat = listObat;
 		initImageLoader();
 	}
+	
+	public void updateContent(List<Obat> obat){
+		this.listObat = obat;
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public int getCount() {

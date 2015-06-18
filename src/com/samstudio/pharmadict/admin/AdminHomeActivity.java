@@ -48,6 +48,7 @@ public class AdminHomeActivity extends Activity {
 	private JSONParser jParser = new JSONParser();
 	private SearchResultAdapter mAdapter;
 	private ListView listView;
+	private String key;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,42 @@ public class AdminHomeActivity extends Activity {
 		setContentView(R.layout.admin_home_layout);
 		initUI();
 		setCallBack();
+		initAdapter();
+	}
+
+	private void initAdapter() {
+		mAdapter = new SearchResultAdapter(context, new ArrayList<Obat>());
+		mAdapter.notifyDataSetChanged();
+		listView = (ListView) findViewById(R.id.obatLV);
+		listView.setAdapter(mAdapter);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(context, EditActivity.class);
+				intent.putExtra(CommonConstants.TAG_OBATID, listObat
+						.get(position).getObat_id());
+				intent.putExtra(CommonConstants.TAG_OBATNAMA, listObat
+						.get(position).getObat_nama());
+				intent.putExtra(CommonConstants.TAG_OBATDESKRIPSI,
+						listObat.get(position).getObat_deskripsi());
+				intent.putExtra(CommonConstants.TAG_OBATINDIKASI,
+						listObat.get(position).getObat_indikasi());
+				intent.putExtra(CommonConstants.TAG_OBATJENIS, listObat
+						.get(position).getObat_jenis());
+				intent.putExtra(CommonConstants.TAG_OBATHARGA, listObat
+						.get(position).getObat_harga());
+				intent.putExtra(CommonConstants.TAG_OBATPIC, listObat
+						.get(position).getObat_pic());
+				startActivityForResult(intent, 1);
+			}
+		});
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		listObat = new ArrayList<Obat>();
+		new URLTask(listener, context, CommonConstants.WEB_SERVICE_URL_SEARCH
+				+ key, CommonConstants.PLEASE_WAIT).execute();
 	}
 
 	private void initUI() {
@@ -62,6 +99,7 @@ public class AdminHomeActivity extends Activity {
 		searchET = (EditText) findViewById(R.id.searchET);
 		obatLV = (ListView) findViewById(R.id.obatLV);
 		submitBT = (Button) findViewById(R.id.submitBT);
+		listObat = new ArrayList<Obat>();
 	}
 
 	private void setCallBack() {
@@ -70,10 +108,10 @@ public class AdminHomeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				listObat = new ArrayList<Obat>();
-				String key = searchET.getText().toString();
+				key = searchET.getText().toString();
 				if (key.length() != 0) {
 					new URLTask(listener, context,
-							CommonConstants.WEB_SERVICE_URL_SEARCH+key,
+							CommonConstants.WEB_SERVICE_URL_SEARCH + key,
 							CommonConstants.PLEASE_WAIT).execute();
 				} else {
 					Toast.makeText(context,
@@ -146,36 +184,12 @@ public class AdminHomeActivity extends Activity {
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
 			if (listObat != null) {
-				mAdapter = new SearchResultAdapter(context,
-						listObat);
-				mAdapter.notifyDataSetChanged();
-				listView = (ListView) findViewById(R.id.obatLV);
-				listView.setAdapter(mAdapter);
-				listView.setOnItemClickListener(new OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						Intent intent = new Intent(context,
-								EditActivity.class);
-						intent.putExtra(CommonConstants.TAG_OBATID, listObat
-								.get(position).getObat_id());
-						intent.putExtra(CommonConstants.TAG_OBATNAMA, listObat
-								.get(position).getObat_nama());
-						intent.putExtra(CommonConstants.TAG_OBATDESKRIPSI, listObat
-								.get(position).getObat_deskripsi());
-						intent.putExtra(CommonConstants.TAG_OBATINDIKASI, listObat
-								.get(position).getObat_indikasi());
-						intent.putExtra(CommonConstants.TAG_OBATJENIS, listObat
-								.get(position).getObat_jenis());
-						intent.putExtra(CommonConstants.TAG_OBATHARGA, listObat
-								.get(position).getObat_harga());
-						intent.putExtra(CommonConstants.TAG_OBATPIC, listObat
-								.get(position).getObat_pic());
-						context.startActivity(intent);
-					}
-				});
+				mAdapter.updateContent(listObat);
 			} else {
-				Toast.makeText(context, CommonConstants.KEYWORD_NOT_FOUND, Toast.LENGTH_SHORT).show();
+				listObat = new ArrayList<Obat>();
+				mAdapter.updateContent(listObat);
+				Toast.makeText(context, CommonConstants.KEYWORD_NOT_FOUND,
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 

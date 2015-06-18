@@ -6,6 +6,7 @@ public class CommonConstants {
 	public static final String WEB_SERVICE_URL_IMAGE = "http://192.168.43.164/pharmadict/pic/";
 	public static final String WEB_SERVICE_URL_GET_SINGLE = "http://192.168.43.164/pharmadict/get_one.php?id=";
 	public static final String WEB_SERVICE_URL_POST_FORM = "http://192.168.43.164/pharmadict/cek_login.php";
+	public static final String WEB_SERVICE_URL_POST_UPDATE_FORM = "http://192.168.43.164/pharmadict/update_obat.php";
 	
 	public static final String TAG_SUCCESS = "success";
 	public static final String TAG_OBAT = "obat";
@@ -23,6 +24,7 @@ public class CommonConstants {
 	public static final String PLEASE_WAIT = "Silahkan tunggu...";
 	public static final String INVALID_INPUT = "Username dan password tidak cocok!";
 	public static final String KEYWORD_NOT_FOUND = "Kata kunci tidak ditemukan!";
+	public static final String UPDATING_FAILED = "Tidak berhasil diperbarui!";
 	
 	public static final int CONNECTION_TIMEOUT_IN_SEC = 15;
 	
