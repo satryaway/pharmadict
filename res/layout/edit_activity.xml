@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/idObatTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:padding="3dp"
+            android:text="-"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/picIV"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/idObatTV"
+            android:layout_marginBottom="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_image" />
+
+        <EditText
+            android:id="@+id/namaObatET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Nama obat"
+            android:layout_below="@+id/picIV" />
+        
+        <EditText
+            android:id="@+id/deskripsiObatET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Deskripsi obat"
+            android:layout_below="@+id/namaObatET" />
+        
+        <EditText
+            android:id="@+id/indikasiObatET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Indikasi obat"
+            android:layout_below="@+id/deskripsiObatET" />
+        
+        <EditText
+            android:id="@+id/jenisObatET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Jenis obat"
+            android:layout_below="@+id/indikasiObatET" />
+        
+        <EditText
+            android:id="@+id/hargaObatET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Harga obat"
+            android:layout_below="@+id/jenisObatET" />
+        
+        <Button
+            android:id="@+id/updateBT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Perbarui"
+            android:textSize="16sp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/hargaObatET"
+        />
+    </RelativeLayout>
+
+</ScrollView>

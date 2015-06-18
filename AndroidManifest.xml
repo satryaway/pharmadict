@@ -27,6 +27,8 @@
         <activity android:name=".SearchResultActivity" ></activity>
         <activity android:name=".DetailActivity" ></activity>
         <activity android:name=".LoginActivity" ></activity>
+        <activity android:name=".admin.AdminHomeActivity" ></activity>
+        <activity android:name=".admin.EditActivity" ></activity>
     </application>
 
 </manifest>

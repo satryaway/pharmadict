@@ -21,6 +21,8 @@ public class CommonConstants {
 	public static final String LOADING_CONTENT = "Memuat konten...";
 	public static final String INPUT_USENAME_AND_PASSWORD = "Masukkan username dan password";
 	public static final String PLEASE_WAIT = "Silahkan tunggu...";
+	public static final String INVALID_INPUT = "Username dan password tidak cocok!";
+	public static final String KEYWORD_NOT_FOUND = "Kata kunci tidak ditemukan!";
 	
 	public static final int CONNECTION_TIMEOUT_IN_SEC = 15;
 	
