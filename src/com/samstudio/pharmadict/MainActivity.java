@@ -1,20 +1,12 @@
 package com.samstudio.pharmadict;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
-import com.samstudio.pharmadict.R;
-import com.samstudio.pharmadict.util.CommonConstants;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Matrix;
 import android.graphics.RectF;
@@ -27,14 +19,22 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.view.ViewHelper;
+import com.samstudio.pharmadict.util.CommonConstants;
 
 public class MainActivity extends Activity {
 
 	private EditText searchET;
 	private Button searchB;
 	private String keyword;
-	private ImageView bgHomeImageView;
+	private ImageView bgHomeImageView, listObatIV, aboutIV, exitIV;
+	private ImageView searchObatIV, searchPengobatanIV, helpIV;
 	private static final int RIGHT_TO_LEFT = 1;
 	private static final int LEFT_TO_RIGHT = 2;
 	private static final int DURATION = 10 * 1000; // TEN SECOND
@@ -52,35 +52,108 @@ public class MainActivity extends Activity {
 	}
 
 	public void initUI() {
-		imagesUrlList.add(R.drawable.image1);
-		imagesUrlList.add(R.drawable.image2);
-		imagesUrlList.add(R.drawable.image3);
-		imagesUrlList.add(R.drawable.image4);
-		imagesUrlList.add(R.drawable.image5);
-		imagesUrlList.add(R.drawable.image6);
-		imagesUrlList.add(R.drawable.image7);
+
+		imagesUrlList.add(R.drawable.drug);
+		imagesUrlList.add(R.drawable.drug2);
+		imagesUrlList.add(R.drawable.drug3);
+		imagesUrlList.add(R.drawable.drug4);
+		imagesUrlList.add(R.drawable.drug5);
+
 		bgHomeImageView = (ImageView) findViewById(R.id.background_view);
 		fetchBgImages();
-		searchET = (EditText) findViewById(R.id.searchET);
-		searchB = (Button) findViewById(R.id.searchB);
+
+		searchObatIV = (ImageView) findViewById(R.id.search_obat_iv);
+		helpIV = (ImageView) findViewById(R.id.help_iv);
+		aboutIV = (ImageView) findViewById(R.id.about_iv);
+		exitIV = (ImageView) findViewById(R.id.exit_iv);
+		searchPengobatanIV = (ImageView) findViewById(R.id.search_pengobatan_iv);
+		listObatIV = (ImageView) findViewById(R.id.list_obat_iv);
+		/*
+		 * searchET = (EditText) findViewById(R.id.searchET); searchB = (Button)
+		 * findViewById(R.id.searchB);
+		 */
 	}
 
 	public void setCallBack() {
-		searchB.setOnClickListener(new OnClickListener() {
+		/*
+		 * searchB.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View v) { keyword =
+		 * searchET.getText().toString(); if (keyword.length() != 0) { Intent
+		 * intent = new Intent(MainActivity.this, SearchResultActivity.class);
+		 * intent.putExtra(CommonConstants.KEYWORD, keyword);
+		 * MainActivity.this.startActivity(intent); } else {
+		 * Toast.makeText(MainActivity.this,
+		 * CommonConstants.PLEASE_INPUT_KEYWORD, Toast.LENGTH_SHORT).show(); } }
+		 * });
+		 */
+		listObatIV.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				keyword = searchET.getText().toString();
-				if (keyword.length() != 0) {
-					Intent intent = new Intent(MainActivity.this,
-							SearchResultActivity.class);
-					intent.putExtra(CommonConstants.KEYWORD, keyword);
-					MainActivity.this.startActivity(intent);
-				} else {
-					Toast.makeText(MainActivity.this,
-							CommonConstants.PLEASE_INPUT_KEYWORD,
-							Toast.LENGTH_SHORT).show();
-				}
+				Intent intent = new Intent(MainActivity.this,
+						ListObatActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		searchObatIV.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,
+						SearchActivity.class);
+				intent.putExtra(CommonConstants.TAG_OBAT, true);
+				startActivity(intent);
+			}
+		});
+
+		searchPengobatanIV.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,
+						SearchActivity.class);
+				intent.putExtra(CommonConstants.TAG_OBAT, false);
+				startActivity(intent);
+			}
+		});
+
+		aboutIV.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this,
+						AboutActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		helpIV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this,
+						HelpActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		exitIV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+	            alert.setTitle("Konfirmasi").setMessage("Apakah kamu yakin ingin keluar?")
+	            .setNegativeButton(android.R.string.no, null)
+	            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+	                public void onClick(DialogInterface arg0, int arg1) {
+	                    finish();
+	                }
+	            }).create().show();
 			}
 		});
 	}

@@ -1,6 +1,5 @@
 package com.samstudio.pharmadict.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -24,93 +23,72 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.samstudio.pharmadict.R;
 import com.samstudio.pharmadict.entities.Obat;
-import com.samstudio.pharmadict.helpers.Seeder;
 
-public class SearchResultAdapter extends BaseAdapter {
-	private Context context;
-	private List<Obat> listObat = new ArrayList<Obat>();
+public class ObatListAdapter extends BaseAdapter {
+	private Context mContext;
+	private List<Obat> obatList;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
-
-	public SearchResultAdapter(Context context, List<Obat> listObat) {
-		this.context = context;
-		this.listObat = listObat;
+	
+	public ObatListAdapter (Context mContext, List<Obat> obatList){
+		this.mContext = mContext;
+		this.obatList = obatList;
 		initImageLoader();
 	}
-
-	public void updateContent(List<Obat> obat) {
-		this.listObat = obat;
+	
+	public void updateContent(List<Obat> obat){
+		this.obatList = obat;
 		notifyDataSetChanged();
 	}
 
 	@Override
 	public int getCount() {
-		return listObat.size();
+		// TODO Auto-generated method stub
+		return obatList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return listObat.get(position);
+		// TODO Auto-generated method stub
+		return obatList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
+		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		ViewHolder holder;
-		if (convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		if(convertView == null){
+			convertView = inflater.inflate(R.layout.list_obat_item_layout, parent, false);
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.list_item, parent, false);
-
-			holder.thumbnail = (ImageView) convertView
-					.findViewById(R.id.thumbnail);
-			holder.namaTV = (TextView) convertView.findViewById(R.id.namaTV);
-			holder.indikasiTV = (TextView) convertView
-					.findViewById(R.id.indikasiTV);
-			holder.jenisTV = (TextView) convertView.findViewById(R.id.jenisTV);
-			holder.hargaTV = (TextView) convertView.findViewById(R.id.hargaTV);
-			holder.kodeV = (View) convertView.findViewById(R.id.kodeV);
-
-			convertView.setTag(holder);
-		}
-
-		else {
-			holder = (ViewHolder) convertView.getTag();
+			
+			holder.obatName = (TextView) convertView.findViewById(R.id.obat_nama_tv);
+			holder.obatPic = (ImageView) convertView.findViewById(R.id.obat_pic_iv);
+			convertView.setTag(holder);	
+		} else{
+			holder = (ViewHolder)convertView.getTag();
 		}
 		
-		String subIndikasi = listObat.get(position).getObat_indikasi();
+		holder.obatName.setText(obatList.get(position).getObat_nama());
+		display(holder.obatPic, obatList.get(position).getObat_pic());
 		
-		if (subIndikasi.length() > 50)
-			subIndikasi = subIndikasi.substring(0, 50) + "...";
-
-		holder.kodeV.setBackgroundResource(Seeder.kodeObat(Integer.valueOf(listObat.get(position).getObat_kode())));
-		holder.namaTV.setText(listObat.get(position).getObat_nama());
-		holder.jenisTV.setText(Seeder.setJenisObat(Integer.valueOf(listObat
-				.get(position).getObat_jenis())));
-
-		holder.indikasiTV.setText(subIndikasi);
-		holder.hargaTV.setText("Rp. " + listObat.get(position).getObat_harga());
-		display(holder.thumbnail, listObat.get(position).getObat_pic());
-
 		return convertView;
 	}
-
+	
 	class ViewHolder {
-		TextView namaTV;
-		TextView indikasiTV;
-		TextView hargaTV;
-		TextView jenisTV;
-		ImageView thumbnail;
-		View kodeV;
+		TextView obatName;
+		ImageView obatPic;
 	}
+	
 
 	private void initImageLoader() {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				context).threadPriority(Thread.NORM_PRIORITY - 2)
+				mContext).threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
 				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
@@ -162,5 +140,6 @@ public class SearchResultAdapter extends BaseAdapter {
 					}
 				});
 	}
+
 
 }

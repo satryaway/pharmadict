@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/obat_pic_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="10dp"
+        android:src="@drawable/default_image" />
+
+    <TextView
+        android:id="@+id/obat_nama_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="contoh obat"
+        android:layout_gravity="center_vertical"
+        android:textSize="18sp" />
+
+</LinearLayout>

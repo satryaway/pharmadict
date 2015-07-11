@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.samstudio.pharmadict.MainActivity" >
+    
+    <ImageView
+        android:id="@+id/background_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="matrix"
+        android:src="@android:color/black"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/background_view"
+        android:layout_centerHorizontal="true" >
+
+        <EditText
+            android:id="@+id/searchET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukan kata kunci..." >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/searchB"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchET"
+            android:layout_centerHorizontal="true"
+            android:text="Cari" />
+    </RelativeLayout>
+
+</RelativeLayout>

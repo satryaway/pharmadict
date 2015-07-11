@@ -7,6 +7,8 @@
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
      <string name="action_login">Login</string>
+     
+     <string name="nothing"></string>
     
     <string name="keyword_not_found">Kata kunci tidak ditemukan!</string>
     
@@ -14,9 +16,44 @@
     <string name="indication">Indikas</string>
     <string name="type">Jenis</string>
     <string name="price">Harga</string>
+    <string name="side_effect">Efek Samping</string>
+    <string name="dosage">Dosis</string>
+    <string name="warning">Perhatian</string>
+    <string name="content">Isi</string>
     
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="obat_detail">Detail Obat</string>
+    <string name="edit_obat">Edit Obat</string>
+    <string name="input_obat">Input Obat</string>
+    
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    
+    <string name="about">Tentang</string>
+    <string name="version">Version 1.0</string>
+    <string name="college">UIN Sunan Gunung Djati Bandung</string>
+    <string name="subject">Teknik Informatika</string>
+    
+    <string name="author">Iif Syarifah L.H.Y</string>
+    <string name="nim">1211705080</string>
+    
+    <string name="login_as_admin">Login as Admin</string>
+    
+    <string name="light">Ringan</string>
+    <string name="medium">Sedang</string>
+    <string name="hard">Keras</string>
+    
+    <string-array name="jenis_obat">
+        <item>Tablet</item>
+        <item>Kapsul</item>
+        <item>Sirup</item>
+        <item>Puyer</item>
+        <item>Krim</item>
+        <item>Salep</item>
+        <item>Minyak</item>
+    </string-array>
+    
 
 </resources>

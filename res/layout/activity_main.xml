@@ -3,36 +3,141 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.samstudio.pharmadict.MainActivity" >
-    
-    <ImageView
-        android:id="@+id/background_view"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="matrix"
-        android:src="@android:color/black"/>
+        android:layout_height="wrap_content" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/background_view"
-        android:layout_centerHorizontal="true" >
+        <ImageView
+            android:id="@+id/background_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="matrix"
+            android:src="@android:color/black" />
+        <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"/>
+            <ImageView 
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_launcher"
+                android:layout_gravity="center"
+                />
+    </FrameLayout>
 
-        <EditText
-            android:id="@+id/searchET"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukan kata kunci..." >
+            android:orientation="vertical" >
 
-            <requestFocus />
-        </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
 
-        <Button
-            android:id="@+id/searchB"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchET"
-            android:layout_centerHorizontal="true"
-            android:text="Cari" />
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="4" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/background_view"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2" >
+
+                    <ImageView
+                        android:id="@+id/search_obat_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ff0099cc"
+                        android:src="@drawable/menu1" />
+
+                    <ImageView
+                        android:id="@+id/search_pengobatan_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ff669900"
+                        android:src="@drawable/menu2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/background_view"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2" >
+
+                    <ImageView
+                        android:id="@+id/list_obat_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffbb33"
+                        android:src="@drawable/menu3" />
+
+                    <ImageView
+                        android:id="@+id/help_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffaa66cc"
+                        android:src="@drawable/menu4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/background_view"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2" >
+
+                    <ImageView
+                        android:id="@+id/about_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffff4444"
+                        android:src="@drawable/menu5" />
+
+                    <ImageView
+                        android:id="@+id/exit_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ff0099cc"
+                        android:src="@drawable/menu6" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/black"
+                        android:gravity="center"
+                        android:text="samstudio - 2015"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

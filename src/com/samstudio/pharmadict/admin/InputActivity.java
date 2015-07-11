@@ -39,15 +39,16 @@ import com.samstudio.pharmadict.helpers.ResultsListener;
 import com.samstudio.pharmadict.helpers.URLTask;
 import com.samstudio.pharmadict.util.CommonConstants;
 
-public class EditActivity extends Activity {
+public class InputActivity extends Activity {
 
-	private EditText namaObatET, deskripsiObatET, indikasiObatET, hargaObatET, 
-		efekSampingObatET, dosisObatET, perhatianObatET, isiObatET;
+	private EditText namaObatET, deskripsiObatET, indikasiObatET, hargaObatET,
+			efekSampingObatET, dosisObatET, perhatianObatET, isiObatET;
 	private Spinner jenisObatSP;
-	private ImageView picIV;
-	private Button updateBT;
-	private String idObat, namaObat, deskripsiObat, indikasiObat, jenisObat, picsObat,
-			hargaObat, picObat, efekSampingObat, dosisObat, perhatianObat, isiObat, kodeObat;
+	private ImageView picIV, closeInputIV;
+	private Button inputBT;
+	private String idObat, namaObat, deskripsiObat, indikasiObat, jenisObat,
+			picsObat, hargaObat, picObat, efekSampingObat, dosisObat,
+			perhatianObat, isiObat, kodeObat;
 	private TextView idObatTV;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	private LinearLayout closeEditWrapper;
@@ -57,66 +58,24 @@ public class EditActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.edit_activity);
+		setContentView(R.layout.input_activity);
 		initImageLoader();
 		initUI();
 		setCallBack();
-		handleIntent();
-		putData();
-	}
-
-	private void putData() {
-		idObatTV.setText(idObat);
-		namaObatET.setText(namaObat);
-		deskripsiObatET.setText(deskripsiObat);
-		indikasiObatET.setText(indikasiObat);
-		efekSampingObatET.setText(efekSampingObat);
-		dosisObatET.setText(dosisObat);
-		perhatianObatET.setText(perhatianObat);
-		isiObatET.setText(isiObat);
-		hargaObatET.setText(hargaObat);
-		jenisObatSP.setSelection(Integer.valueOf(jenisObat));
-		display(picIV, picObat);
-		
-		switch(Integer.valueOf(kodeObat)){
-		case 1 : light.setChecked(true);break;
-		case 2 : medium.setChecked(true);break;
-		default : hard.setChecked(true);break;
-		}
-
-	}
-
-	private void handleIntent() {
-		Intent intent = getIntent();
-		idObat = intent.getStringExtra(CommonConstants.TAG_OBATID);
-		namaObat = intent.getStringExtra(CommonConstants.TAG_OBATNAMA);
-		deskripsiObat = intent
-				.getStringExtra(CommonConstants.TAG_OBATDESKRIPSI);
-		indikasiObat = intent.getStringExtra(CommonConstants.TAG_OBATINDIKASI);
-		hargaObat = intent.getStringExtra(CommonConstants.TAG_OBATHARGA);
-		int tempJenis = Integer.valueOf(intent.getStringExtra(CommonConstants.TAG_OBATJENIS));
-		if(tempJenis != 0)tempJenis = tempJenis-1;
-		jenisObat = String.valueOf(tempJenis);
-		picObat = intent.getStringExtra(CommonConstants.TAG_OBATPIC);
-		efekSampingObat = intent.getStringExtra(CommonConstants.TAG_OBATEFEKSAMPING);
-		dosisObat = intent.getStringExtra(CommonConstants.TAG_OBATDOSIS);
-		perhatianObat = intent.getStringExtra(CommonConstants.TAG_OBATPERHATIAN);
-		isiObat = intent.getStringExtra(CommonConstants.TAG_OBATISI);
-		kodeObat = intent.getStringExtra(CommonConstants.TAG_OBATKODE);
-		picsObat = intent.getStringExtra("obat_pics");
-
+		// handleIntent();
+		// putData();
 	}
 
 	private void setCallBack() {
-		closeEditWrapper.setOnClickListener(new OnClickListener() {
+		closeInputIV.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		
-		updateBT.setOnClickListener(new OnClickListener() {
+
+		inputBT.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -126,13 +85,17 @@ public class EditActivity extends Activity {
 				String updatedIndikasiObat = indikasiObatET.getText()
 						.toString();
 				String updatedHargaObat = hargaObatET.getText().toString();
-				String updatedJenisObat = String.valueOf(jenisObatSP.getSelectedItemPosition()+1);
+				String updatedJenisObat = String.valueOf(jenisObatSP
+						.getSelectedItemPosition() + 1);
 				String updatedKodeObat;
 				SharedPreferences settings = getSharedPreferences(CommonConstants.USERNAME, Context.MODE_PRIVATE);
 				
-				if(light.isChecked()) updatedKodeObat = "1";
-				else if(medium.isChecked()) updatedKodeObat = "2";
-				else updatedKodeObat = "3";
+				if (light.isChecked())
+					updatedKodeObat = "1";
+				else if (medium.isChecked())
+					updatedKodeObat = "2";
+				else
+					updatedKodeObat = "3";
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put(CommonConstants.TAG_OBATID, idObat);
 				map.put(CommonConstants.TAG_OBATNAMA, updatedNamaObat);
@@ -141,15 +104,19 @@ public class EditActivity extends Activity {
 				map.put(CommonConstants.TAG_OBATHARGA, updatedHargaObat);
 				map.put(CommonConstants.TAG_OBATJENIS, updatedJenisObat);
 				map.put(CommonConstants.TAG_OBATKODE, updatedKodeObat);
-				map.put(CommonConstants.TAG_OBATEFEKSAMPING, efekSampingObatET.getText().toString());
-				map.put(CommonConstants.TAG_OBATDOSIS, dosisObatET.getText().toString());
-				map.put(CommonConstants.TAG_OBATPERHATIAN, perhatianObatET.getText().toString());
-				map.put(CommonConstants.TAG_OBATISI, isiObatET.getText().toString());
+				map.put(CommonConstants.TAG_OBATEFEKSAMPING, efekSampingObatET
+						.getText().toString());
+				map.put(CommonConstants.TAG_OBATDOSIS, dosisObatET.getText()
+						.toString());
+				map.put(CommonConstants.TAG_OBATPERHATIAN, perhatianObatET
+						.getText().toString());
+				map.put(CommonConstants.TAG_OBATISI, isiObatET.getText()
+						.toString());
 				map.put(CommonConstants.USERNAME, settings.getString(CommonConstants.USERNAME, ""));
 				map.put("obat_pics", picsObat);
 
-				new URLTask(listener, EditActivity.this,
-						CommonConstants.WEB_SERVICE_URL_POST_UPDATE_FORM,
+				new URLTask(listener, InputActivity.this,
+						CommonConstants.WEB_SERVICE_URL_GET_SINGLE,
 						CommonConstants.PLEASE_WAIT, map).execute();
 			}
 		});
@@ -168,12 +135,13 @@ public class EditActivity extends Activity {
 		isiObatET = (EditText) findViewById(R.id.isi_obat_ET);
 		jenisObatSP = (Spinner) findViewById(R.id.jenisObatSP);
 		picIV = (ImageView) findViewById(R.id.picIV);
-		updateBT = (Button) findViewById(R.id.updateBT);
+		inputBT = (Button) findViewById(R.id.inputBT);
 		closeEditWrapper = (LinearLayout) findViewById(R.id.close_edit_wrapper);
 		kodeObatRG = (RadioGroup) findViewById(R.id.kode_obat_RG);
 		light = (RadioButton) findViewById(R.id.kode_obat_ringan_rb);
 		medium = (RadioButton) findViewById(R.id.kode_obat_sedang_rb);
 		hard = (RadioButton) findViewById(R.id.kode_obat_keras_rb);
+		closeInputIV = (ImageView) findViewById(R.id.close_input_iv);
 	}
 
 	ResultsListener listener = new ResultsListener() {
@@ -186,13 +154,12 @@ public class EditActivity extends Activity {
 				if (success == 1) {
 					Intent returnIntent = new Intent();
 					setResult(RESULT_OK, returnIntent);
-
-					Toast.makeText(EditActivity.this,
-							CommonConstants.UPDATE_SUCCEED, Toast.LENGTH_SHORT)
+					Toast.makeText(InputActivity.this,
+							CommonConstants.INPUT_SUCCEED, Toast.LENGTH_SHORT)
 							.show();
 					finish();
 				} else {
-					Toast.makeText(EditActivity.this,
+					Toast.makeText(InputActivity.this,
 							CommonConstants.UPDATING_FAILED, Toast.LENGTH_SHORT)
 							.show();
 				}
